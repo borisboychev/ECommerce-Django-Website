@@ -3,7 +3,11 @@ atomicwrites==1.4.0
 attrs==20.3.0
 colorama==0.4.4
 Django==3.0.8
+django-cors-headers==3.5.0
+django-filter==2.4.0
+djangorestframework==3.12.2
 iniconfig==1.1.1
+Markdown==3.3.3
 packaging==20.4
 Pillow==8.0.1
 pluggy==0.13.1
