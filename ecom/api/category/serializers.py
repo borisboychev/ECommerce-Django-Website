@@ -9,4 +9,5 @@ from api.category.models import Category
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('name', 'description')
+        # ('id', 'name', 'description')
+        fields = '__all__'
