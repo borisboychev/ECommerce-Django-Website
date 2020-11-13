@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'api',
     'api.category',
     'api.product',
+    # 'api.user',
 ]
 
 MIDDLEWARE = [
@@ -135,6 +136,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
 
+# AUTH_USER_MODEL = 'user.User'
 
 # Cross-Origin Resource Sharing (CORS)
 # https://pypi.org/project/django-cors-headers/
