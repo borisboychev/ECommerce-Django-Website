@@ -1,12 +1,12 @@
 from django.urls import path, include
 from rest_framework import routers
 
-from api.user.views import UserViewSet, sign_in, sign_out
+from api.user.views import UserViewSet, signin, signout
 
 router = routers.DefaultRouter()
 router.register(r'', UserViewSet)
 urlpatterns = [
+    path('login/', signin, name='signin'),
+    path('logout/<int:id>/', signout, name='signout'),
     path('', include(router.urls)),
-    path('login/', sign_in, name='sign in'),
-    path('logout/<int:id>/', sign_out, name='sign out'),
 ]

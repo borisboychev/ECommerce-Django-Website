@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'api',
     'api.category',
     'api.product',
-    # 'api.user',
+    'api.user',
 ]
 
 MIDDLEWARE = [
@@ -81,14 +81,21 @@ WSGI_APPLICATION = 'ecom.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ecom_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres951753',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecom_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres951753',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -136,7 +143,7 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = join(BASE_DIR, 'media')
 
-# AUTH_USER_MODEL = 'user.User'
+AUTH_USER_MODEL = 'user.User'
 
 # Cross-Origin Resource Sharing (CORS)
 # https://pypi.org/project/django-cors-headers/

@@ -19,15 +19,15 @@ def generate_session_token(length=32):
 
 
 @csrf_exempt
-def sign_in(request):
-    if not request.method == 'POST':
+def signin(request):
+    if request.method != 'POST':
         return JsonResponse({"error": "Send a POST request with valid parameters"})
 
     username = request.POST['email']
     password = request.POST['password']
 
     # Email Validation
-    if not re.math(r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$', username):
+    if not re.match(r'^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$', username):
         return JsonResponse({"error": "Enter a valid email"})
 
     # Password Validation
@@ -37,10 +37,11 @@ def sign_in(request):
     UserModel = get_user_model()
 
     try:
-        user = UserModel.object.get(email=username)
+        user = UserModel.objects.get(email=username)
 
+        print(type(password))
         if user.check_password(password):
-            user_dict = UserModel.object \
+            user_dict = UserModel.objects \
                 .filter(email=username) \
                 .values() \
                 .first()
@@ -62,15 +63,17 @@ def sign_in(request):
         return JsonResponse({'error': 'Invalid Email'})
 
 
-def sign_out(request):
+@csrf_exempt
+def signout(request, id):
     logout(request)
 
     UserModel = get_user_model()
 
     try:
-        user = UserModel.object.get(pk=id)
+        user = UserModel.objects.get(pk=id)
         user.session_token = "0"
         user.save()
+
     except UserModel.DoesNotExist:
         return JsonResponse({"error": "Invalid user ID"})
     return JsonResponse({'success': "Logout success"})
@@ -79,7 +82,7 @@ def sign_out(request):
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes_by_action = {'create': [AllowAny]}
 
-    query_set = User.objects.all().order_by('id')
+    queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
 
     def get_permissions(self):
